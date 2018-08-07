@@ -1,0 +1,4 @@
+# AntiLava ${project.version}
+
+disabled-worlds:
+- "world"

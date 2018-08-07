@@ -1,0 +1,9 @@
+name: Antilava
+version: ${project.version}
+main: me.glaremasters.antilava.Antilava
+authors: [blockslayer22]
+description: AntiLava
+
+commands:
+  alreload:
+    description: /alreload
