@@ -1,6 +1,9 @@
 package me.glaremasters.antilava.events;
 
 import me.glaremasters.antilava.Antilava;
+import org.bukkit.Bukkit;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -20,9 +23,12 @@ public class Lava implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent event) {
-        if (event.getCause() == EntityDamageEvent.DamageCause.LAVA) {
-            if (antilava.getConfig().getStringList("disabled-worlds").contains(event.getEntity().getWorld().toString())) {
-                event.setCancelled(true);
+        FileConfiguration c = antilava.getConfig();
+        if (event.getEntity() instanceof Player) {
+            Player player = (Player) event.getEntity();
+            String world = player.getWorld().getName();
+            if (event.getCause() == EntityDamageEvent.DamageCause.LAVA || event.getCause() == EntityDamageEvent.DamageCause.FIRE || event.getCause() == EntityDamageEvent.DamageCause.FIRE_TICK) {
+                if (c.getStringList("disabled-worlds").contains(world)) event.setCancelled(true);
             }
         }
     }
